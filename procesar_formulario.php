@@ -1,6 +1,6 @@
 <?php
 
-include("conexionBD.php");
+include("validacion.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $arq = $_POST["arq"];
@@ -15,9 +15,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dc = $_POST["dc"];
     $ed = $_POST["ed"];
 
+
+    $error = validarFormulario($arq, $li, $def1, $def2, $ld, $mc1, $mcd, $mc2, $ei, $dc, $ed);
+    if ($error != "") {
+        echo $error;
+        exit; // Sale del script si hay errores
+    }
+
+    include("conexionBD.php");
+
     $sql = "INSERT INTO equipo (arq, li, def1, def2, ld, mc1, mcd, mc2, ei, dc, ed) VALUES ('$arq', '$li', '$def1', '$def2', '$ld', '$mc1', '$mcd', '$mc2', '$ei', '$dc', '$ed')";
     if ($conn->query($sql) === TRUE) {
-        echo "Datos insertados correctamente";
+        echo "Formulario enviado correctamente.";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
