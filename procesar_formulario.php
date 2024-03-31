@@ -26,7 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit; // Sale del script si hay errores
     }
 
-    include("conexionBD.php");
+    $conexionBD = ConexionBD::obtenerInstancia();
+    $conn = $conexionBD->obtenerConexion();
 
     $sql = "INSERT INTO equipo (arq, li, def1, def2, ld, mc1, mcd, mc2, ei, dc, ed) VALUES ('$arq', '$li', '$def1', '$def2', '$ld', '$mc1', '$mcd', '$mc2', '$ei', '$dc', '$ed')";
     if ($conn->query($sql) === TRUE) {
