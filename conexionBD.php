@@ -4,7 +4,7 @@ class ConexionBD {
     private static $instancia;
     private $conexion;
 
-    private function constructor() {
+    private function __construct() {
         $ip = "localhost";
         $usuario = "root";
         $password = "G#5tRd@9qXs!";
@@ -17,14 +17,13 @@ class ConexionBD {
         echo "Conexión exitosa. ";
     }
 
-
     public static function obtenerInstancia() {
         if (!self::$instancia) {
             self::$instancia = new ConexionBD();
         }
         return self::$instancia;
     }
-    
+
     public function obtenerConexion() {
         return $this->conexion;
     }
